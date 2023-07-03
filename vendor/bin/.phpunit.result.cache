@@ -1,0 +1,1 @@
+{"version":1,"defects":{"CountriesTest::testScrapeData":7},"times":{"CountriesTest::testScrapeData":0.706,"CountriesTest::testScrapeDataReturnsNonEmptyArray":0.683}}

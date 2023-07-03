@@ -1,0 +1,25 @@
+{
+    "name": "yosuke/td3",
+    "description": "Rendu",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Yosuke\\Td3\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Youssef Charafeddine",
+            "email": "yosuke2017@hotmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^10.2"
+    },
+    "require": {
+        "symfony/dom-crawler": "^6.3",
+        "symfony/css-selector": "^6.3"
+    }
+}
