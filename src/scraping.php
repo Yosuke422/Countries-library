@@ -9,7 +9,7 @@ class Countries
     /**
      * Scraper les données du site et les retourner sous forme de tableau associatif.
      *
-     *  @return array<int|string, string>
+     * @return array<string, array<string, string>>
      */
     public static function scrapeData(): array
     {
@@ -17,21 +17,31 @@ class Countries
         $crawler = new Crawler();
         $crawler->addHtmlContent((string)$html);
 
-        $countries = $crawler->filter('table tbody tr td:nth-child(2) a')->extract(['_text']);
-        $populations = $crawler->filter('table tbody tr td:nth-child(3)')->extract(['_text']);
+        $countries = $crawler->filter('table tbody tr')->each(function (Crawler $node, $i) {
+            $countryName = $node->filter('td:nth-child(2) a')->text();
+            $population = $node->filter('td:nth-child(3)')->text();
+            $landArea = $node->filter('td:nth-child(7)')->text();
+
+            return [
+                'population' => $population,
+                'land_area' => $landArea,
+            ];
+        });
 
         $data = [];
-        foreach ($countries as $index => $country) {
-            $data[$country] = $populations[$index];
+        foreach ($countries as $index => $countryData) {
+            $countryName = $crawler->filter('table tbody tr td:nth-child(2) a')->eq($index)->text();
+            $data[$countryName] = $countryData;
         }
 
         return $data;
     }
 }
 
-    $countriesData = Countries::scrapeData();
+$countriesData = Countries::scrapeData();
 
-foreach ($countriesData as $country => $population) {
-    echo "Pays : " . $country . ", Population : " . $population . "<br>";
+foreach ($countriesData as $country => $data) {
+    echo "Pays : " . $country . "<br>";
+    echo "Population : " . $data['population'] . "<br>";
+    echo "Superficie terrestre : " . $data['land_area'] . "<br><br>";
 }
-

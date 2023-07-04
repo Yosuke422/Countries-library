@@ -1,18 +1,15 @@
 <?php
 
-require_once 'vendor/autoload.php'; // Chargement de l'autoloader de Composer
+require_once 'vendor/autoload.php'; 
 
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\CssSelector\CssSelectorConverter;
-require_once 'src/scraping.php'; // Assurez-vous que le chemin est correct
+require_once 'src/scraping.php'; 
 
-// Utilisation de la bibliothèque
 $scrapedData = Countries::scrapeData();
 
-// Convertir les données en format JSON
 $jsonData = json_encode($scrapedData, JSON_PRETTY_PRINT);
 
-// Enregistrer les données dans un fichier JSON
 $file = 'data.json';
 file_put_contents($file, $jsonData);
 
